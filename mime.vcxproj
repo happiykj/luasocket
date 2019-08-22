@@ -101,6 +101,12 @@
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(OutDir)..\..\libs goto 1
+mkdir $(OutDir)..\..\libs
+:1
+copy $(ProjectDir)src\mime.lua $(OutDir)..\..\libs\mime.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -128,6 +134,12 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(OutDir)..\..\libs goto 1
+mkdir $(OutDir)..\..\libs
+:1
+copy $(ProjectDir)src\mime.lua $(OutDir)..\..\libs\mime.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -154,6 +166,12 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(OutDir)..\..\libs goto 1
+mkdir $(OutDir)..\..\libs
+:1
+copy $(ProjectDir)src\mime.lua $(OutDir)..\..\libs\mime.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -181,6 +199,12 @@
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
       <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(OutDir)..\..\libs goto 1
+mkdir $(OutDir)..\..\libs
+:1
+copy $(ProjectDir)src\mime.lua $(OutDir)..\..\libs\mime.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
