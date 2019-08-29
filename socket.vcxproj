@@ -42,11 +42,13 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -87,17 +89,18 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\lua\lua\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LUASOCKET_API=__declspec(dllexport);_CRT_SECURE_NO_WARNINGS;LUASOCKET_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_DEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(IntDir)$(TargetName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies>lua.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -112,20 +115,35 @@
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(SolutionDir)execute\$(Platform)\$(Configuration)\ibs goto 1
+mkdir $(SolutionDir)execute\$(Platform)\$(Configuration)\libs
+:1
+copy $(ProjectDir)src\url.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\url.lua
+copy $(ProjectDir)src\tp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\tp.lua
+copy $(ProjectDir)src\socket.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\socket.lua
+copy $(ProjectDir)src\smtp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\smtp.lua
+copy $(ProjectDir)src\mbox.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\mbox.lua
+copy $(ProjectDir)src\ltn12.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ltn12.lua
+copy $(ProjectDir)src\http.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\http.lua
+copy $(ProjectDir)src\headers.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\headers.lua
+copy $(ProjectDir)src\ftp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ftp.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\lua\lua\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LUASOCKET_API=__declspec(dllexport);_CRT_SECURE_NO_WARNINGS;LUASOCKET_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(IntDir)$(TargetName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies>lua.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -139,17 +157,33 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(SolutionDir)execute\$(Platform)\$(Configuration)\ibs goto 1
+mkdir $(SolutionDir)execute\$(Platform)\$(Configuration)\libs
+:1
+copy $(ProjectDir)src\url.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\url.lua
+copy $(ProjectDir)src\tp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\tp.lua
+copy $(ProjectDir)src\socket.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\socket.lua
+copy $(ProjectDir)src\smtp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\smtp.lua
+copy $(ProjectDir)src\mbox.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\mbox.lua
+copy $(ProjectDir)src\ltn12.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ltn12.lua
+copy $(ProjectDir)src\http.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\http.lua
+copy $(ProjectDir)src\headers.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\headers.lua
+copy $(ProjectDir)src\ftp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ftp.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\lua\lua\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LUASOCKET_API=__declspec(dllexport);_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader />
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat />
-      <ProgramDataBaseFileName>$(IntDir)$(TargetName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
     </ClCompile>
     <Link>
       <AdditionalDependencies>lua.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -164,19 +198,32 @@
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(SolutionDir)execute\$(Platform)\$(Configuration)\ibs goto 1
+mkdir $(SolutionDir)execute\$(Platform)\$(Configuration)\libs
+:1
+copy $(ProjectDir)src\url.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\url.lua
+copy $(ProjectDir)src\tp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\tp.lua
+copy $(ProjectDir)src\socket.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\socket.lua
+copy $(ProjectDir)src\smtp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\smtp.lua
+copy $(ProjectDir)src\mbox.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\mbox.lua
+copy $(ProjectDir)src\ltn12.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ltn12.lua
+copy $(ProjectDir)src\http.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\http.lua
+copy $(ProjectDir)src\headers.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\headers.lua
+copy $(ProjectDir)src\ftp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ftp.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\lua\lua\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LUASOCKET_API=__declspec(dllexport);_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <ProgramDataBaseFileName>$(IntDir)$(TargetName)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
     </ClCompile>
     <Link>
       <AdditionalDependencies>lua.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -191,6 +238,20 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>if exist $(SolutionDir)execute\$(Platform)\$(Configuration)\ibs goto 1
+mkdir $(SolutionDir)execute\$(Platform)\$(Configuration)\libs
+:1
+copy $(ProjectDir)src\url.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\url.lua
+copy $(ProjectDir)src\tp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\tp.lua
+copy $(ProjectDir)src\socket.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\socket.lua
+copy $(ProjectDir)src\smtp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\smtp.lua
+copy $(ProjectDir)src\mbox.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\mbox.lua
+copy $(ProjectDir)src\ltn12.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ltn12.lua
+copy $(ProjectDir)src\http.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\http.lua
+copy $(ProjectDir)src\headers.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\headers.lua
+copy $(ProjectDir)src\ftp.lua $(SolutionDir)execute\$(Platform)\$(Configuration)\libs\ftp.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
